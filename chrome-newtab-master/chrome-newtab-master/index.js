@@ -2,14 +2,14 @@
 const store = chrome.storage.sync;
 (function () {
   let dom = document.getElementById("bgimg");
-  dom.style.background = "linear-gradient(220.55deg, #5D85A6 0%, #0E2C5E 100%)";
+  dom.style.background = "yellow(220.55deg, #5D85A6 0%, #0E2C5E 100%)";
   dom.style.backgroundRepeat = "no-repeat";
   dom.style.backgroundSize = "cover";
   let rand = Math.random();
   rand = rand < 0.5 ? Math.floor(rand) : Math.ceil(rand);
-  rand == 0 ? fetchVideo() : fetchImage();
+  rand == 0 ? fetchImage();
   function fetchImage() {
-    fetch("https://source.unsplash.com/random/1024x600")
+    fetch("https://images.unsplash.com/photo-1483058712412-4245e9b90334?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80/1024x600")
       .then((resp) => resp)
       .then((imagelists) => {
         let selectedImage = imagelists.url;
@@ -21,23 +21,7 @@ const store = chrome.storage.sync;
         error();
       });
   }
-  function fetchVideo() {
-    fetch("https://randomvideo.vercel.app/randomvideo")
-      .then((resp) => resp.json())
-      .then((res) => {
-        insertVideo(res?.src?.video_files[0].link);
-      })
-      .catch(() => {
-        error();
-      });
-  }
-  function insertVideo(src) {
-    var video = document.getElementById("myVideo");
-    var source = document.createElement("source");
-    source.setAttribute("src", src);
-    video.appendChild(source);
-    video.play();
-  }
+  
   function error() {
     let dom = document.getElementById("bgimg");
     dom.style.backgroundColor = "grey";
